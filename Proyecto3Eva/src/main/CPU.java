@@ -13,6 +13,7 @@ public class CPU {
 	}
 	
 	public boolean execute(ByteCode bc) {
+		return pause;
 		
 	}
 }
