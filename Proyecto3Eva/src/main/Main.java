@@ -5,7 +5,7 @@ public class Main {
 	/**
 	 * Metodo para que el juego funcione
 	 * 
-	 * @param args
+	 * @param args.
 	 */
 	public static void main(String[] args) {
 		Memory memoria = new Memory();
