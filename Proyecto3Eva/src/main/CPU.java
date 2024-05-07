@@ -13,7 +13,6 @@ public class CPU {
 	}
 	
 	public boolean execute(ByteCode bc) {
-		if(bc == ENUM_BYTECODE.ADD)
-			return true;
+		
 	}
 }
