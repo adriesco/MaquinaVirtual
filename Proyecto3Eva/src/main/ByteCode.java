@@ -1,4 +1,3 @@
-
 package main;
 
 public class ByteCode {
@@ -7,6 +6,19 @@ public class ByteCode {
 
 	public ByteCode(ENUM_BYTECODE bc) {
 		this.name = bc;
+		this.param = -1;
 	}
 	
+	public ByteCode(ENUM_BYTECODE bc, int i) {
+		this.name = bc;
+		this.param = i;
+	}
+	
+	public ENUM_BYTECODE getBC() {
+		return this.name;
+	}
+	
+	public int getParam() {
+		return this.param;
+	}
 }
