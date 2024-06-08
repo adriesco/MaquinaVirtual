@@ -2,34 +2,42 @@ package main;
 
 public class ByteCodeParser {
 
-	public static ByteCode parse(String s) {
-		String[] a = s.split(" ");
-		switch (a.length) {
-		case 1:
-			if (a[0].equalsIgnoreCase("PUSH")) {
-				return new ByteCode(ENUM_BYTECODE.PUSH, Integer.parseInt(a[1]));
-			}else if (a[0].equalsIgnoreCase("LOAD")) {
-				return new ByteCode(ENUM_BYTECODE.LOAD, Integer.parseInt(a[1]));
-			}else if (a[0].equalsIgnoreCase("STORE")) {
-				return new ByteCode(ENUM_BYTECODE.STORE, Integer.parseInt(a[1]));
-			}
-		case 2:
-			if(a[0].equalsIgnoreCase("add")) {
-				return new ByteCode(ENUM_BYTECODE.ADD);
-			}else if (a[0].equalsIgnoreCase("DIV")) {
-				return new ByteCode(ENUM_BYTECODE.DIV);
-			}else if (a[0].equalsIgnoreCase("MUL")) {
-				return new ByteCode(ENUM_BYTECODE.MUL);
-			}else if (a[0].equalsIgnoreCase("SUB")) {
-				return new ByteCode(ENUM_BYTECODE.SUB);
-			}else if(a[0].equalsIgnoreCase("OUT")) {
-				return new ByteCode(ENUM_BYTECODE.OUT);
-			}else if (a[0].equalsIgnoreCase("HALT")) {
-				return new ByteCode(ENUM_BYTECODE.HALT);
-			}
-		default:
-			return null;
-		}
-	}
+    /**
+     * devuelve el bytecode 
+     * @param b
+     * @param a
+     * @return
+     */
+    public static ByteCode parse(String a, String b) {
+        switch (a.toLowerCase()) {
+            case "push":
+                return new ByteCode(ENUM_BYTECODE.PUSH, Integer.parseInt(b));
+            case "load":
+                return new ByteCode(ENUM_BYTECODE.LOAD, Integer.parseInt(b));
+            case "store":
+                return new ByteCode(ENUM_BYTECODE.STORE, Integer.parseInt(b));
+        } return null;
+    }
 
+    /**
+     * devuelve el bytecode 
+     * @param _s
+     * @return
+     */
+    public static ByteCode parse(String _s) {
+        switch (_s.toLowerCase()) {
+            case "add":
+                return new ByteCode(ENUM_BYTECODE.ADD);
+            case "sub":
+                return new ByteCode(ENUM_BYTECODE.SUB);
+            case "mul":
+                return new ByteCode(ENUM_BYTECODE.MUL);
+            case "div":
+                return new ByteCode(ENUM_BYTECODE.DIV);
+            case "out":
+                return new ByteCode(ENUM_BYTECODE.OUT);
+            case "halt":
+                return new ByteCode(ENUM_BYTECODE.HALT);
+        } return null;
+    }
 }

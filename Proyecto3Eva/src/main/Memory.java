@@ -1,67 +1,79 @@
 package main;
 
 public class Memory {
-	private int Max_memory;
-	private int size;
-	private Integer[] memory;
-	private boolean empty;
-	
-	public Memory() {
-		size = 5;
-		memory = new Integer[size];
-		this.empty = true;
-	}
-	
-	private void resize (int pos) {
-		if(pos >= size) {
-			this.empty = false;
-			Integer[] array2 = new Integer[pos*2];
-			for (int i = 0; i < this.memory.length; i++) {
-				if(i < this.size) {
-					array2[i] = this.memory[i];
-				}else {
-					array2[i] = null;
-				}
-	        }
-			this.memory = array2;
-			this.size = array2.length;
-		}
-	}
-	
-	public boolean write(int pos, Integer x) {
-		if(pos >= 0) {
-			this.resize(pos);
-			this.memory[pos] = x;
-			return true;
-		}else {
-			return false;
-		}
-	}
-	
-	public Integer read(int pos) {
-		if (this.memory[pos] == null) {
-			return -1;
-		}else {
-			return this.memory[pos];
-		}
-	}
-	
-	public String toString() {
-			String texto = "";
-			if (empty == false) {
-				for(int i = 0; i < memory.length; i++) {
-					if (this.memory[i] == null) {
-						
-					}else {
-						texto += "[" + i + "]" + this.memory[i] + " ";
-					}
-				}
-				return texto;
-			}else
-				return "vacia";
-	}
-	
-	public void erase() {
-		this.memory = new Integer[size];
-	}
+    private Integer[] memory;
+    private final int MAX_NUM;
+    private int size;
+    private boolean isEmpty;
+
+    public Memory() {
+        this.MAX_NUM = 10;
+        this.memory = new Integer[MAX_NUM];
+        this.size = 10;
+        this.isEmpty = true;
+    }
+
+    /**
+     * Redimensiona la memoria
+     * Complejidad 0(n)
+     * @param _pos
+     */
+    private void resize(int _pos) {
+        if (_pos >= this.size) {
+            this.isEmpty = false;
+            Integer[] new_memory = new Integer[_pos * 2];
+            if (this.size >= 0) System.arraycopy(this.memory, 0, new_memory, 0, this.size);
+            this.memory = new_memory;
+        }
+    }
+
+    /**
+     * toString
+     * Complejidad 0(n)
+     * @return
+     */
+    public String toString() {
+        String cadena = "Memoria: ";
+        if (isEmpty) {
+            return cadena += "---";
+        } else {
+            for (int i = 0; i < this.memory.length; i++) {
+                if (this.memory[i] != null) {
+                    cadena += (" [" + i + "]: " + this.memory[i] + " ");
+                }
+            }
+            return cadena;
+        }
+
+    }
+
+    /**
+     * Escribe en la memoria
+     * @param _pos
+     * @param _value
+     * @return
+     */
+    public boolean write(int _pos, int _value) {
+        if (_pos >= 0) {
+            this.isEmpty = false;
+            resize(_pos);
+            this.memory[_pos] = _value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Lee de la memoria
+     * @param _pos
+     * @return
+     */
+    public int read(int _pos) {
+        if (this.memory[_pos] != null && _pos>=0) {
+            return this.memory[_pos];
+        } else {
+            return -1;
+        }
+    }
 }

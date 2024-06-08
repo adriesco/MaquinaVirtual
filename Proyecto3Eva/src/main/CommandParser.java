@@ -1,29 +1,33 @@
 package main;
 
 public class CommandParser {
-	public static Command parse(String s) {
-		String[] a = s.split(" ");
-		switch (a.length) {
-		case 1: {
-			if(a[0].equalsIgnoreCase("help"))
-				return new Command(ENUM_COMMAND.HELP);
-			else if(a[0].equalsIgnoreCase("quit"))
-				return new Command(ENUM_COMMAND.QUIT);
-			else if(a[0].equalsIgnoreCase("run"))
-				return new Command(ENUM_COMMAND.RUN);
-			else if(a[0].equalsIgnoreCase("reset"))
-				return new Command(ENUM_COMMAND.RESET);
-		}
-		case 2:
-			if(a[0].equalsIgnoreCase("replace"))
-				return new Command(ENUM_COMMAND.REPLACE);
-		case 3:
-			if(a[0].equalsIgnoreCase("newinst"))
-				return new Command(ENUM_COMMAND.NEWINST);
-		default:
-			return null;
-		}
-	}
+    /**
+     * Parsea un string a un comando
+     * @param i
+     * @return
+     */
+    public static Command parse(String i ) {
+        String[] partir = i.toLowerCase().split(" ");
+        switch (partir[0]) {
+            case "help":
+                return new Command(ENUM_COMMAND.HELP);
+            case "quit":
+                return new Command(ENUM_COMMAND.QUIT);
+            case "run":
+                return new Command(ENUM_COMMAND.RUN);
+            case "reset":
+                return new Command(ENUM_COMMAND.RESET);
+            case "newinst":
+                if (partir.length == 3) {
+                    return new Command(ENUM_COMMAND.NEWINST, ByteCodeParser.parse(partir[1], partir[2]));
+                } else if (partir.length == 2) {
+                    return new Command(ENUM_COMMAND.NEWINST, ByteCodeParser.parse(partir[1]));
+                }
 
-	
+            case "replace":
+                return new Command(ENUM_COMMAND.REPLACE, Integer.parseInt(partir[1]));
+            default:
+                return null;
+        }
+    }
 }

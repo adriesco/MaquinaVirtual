@@ -1,79 +1,101 @@
 package main;
 
-import java.util.Iterator;
-
 public class ByteCodeProgram {
-	private int elemts;
-	private int size;
-	private ByteCode[]program;
-	
-	public ByteCodeProgram() {
-		this.size = 1;
-		this.elemts = 0;
-		this.program = new ByteCode[size];
-	}
-	
-	private void resize() {
-		if(this.elemts == this.size) {
-			ByteCode a[] = new ByteCode[this.size * 2];
-			for(int i = 0; i < this.size; i++) {
-				if(i < this.size) {
-					a[i] = this.program[i];
-				}else {
-					a[i] = null;
-				}
-			}
-			this.program = a;
-			this.size = a.length;
-		}
-	}
-	
-	public void setInstruction(ByteCode bc) {
-		this.resize();
-		this.program[this.elemts] = bc;
-		this.elemts++;
-	}
-	
-	public String toString() {
-		String texto = "";
-		for(int i = 0; i < this.elemts; i++) {
-			if (this.program[(i +1)- 1].getParam() == -1) {
-				texto +=  i +": "+ this.program[(i + 1) - 1].getBC() + "\n";
-			}else {
-				texto += i +": "+ this.program[i].getBC() + " " + this.program[i].getParam() + "\n";
-			}
-		}
-		return texto;
-	}
-	
-	public boolean setInstructionPosition(ByteCode bc, int pos) {
-		if (pos >= 0 && pos < this.size) {
-			this.program[pos] = bc;
-			return true;
-		}else
-			return false;
-	}
-	
-	public void reset() {
-		this.program = new ByteCode[size];
-		this.elemts = 0;
-		this.size = 1;
-	}
-	
-	public String runProgram(CPU cpu) {
-		String s = "";
-		for(int i = 0; i < this.elemts; i++) {
-			if(!cpu.isHalt() && cpu.execute(this.program[i])) {
-				if (this.program[i].getParam() != -1)
-					s += "\nEl estado de la maquina despues de ejecutar " + this.program[i].getBC() + " " + this.program[i].getParam() + " es:\n\nCPU estado:\n" + cpu.toString() + "\n";
-				else {
-					s += "\nEl estado de la maquina despues de ejecutar " + this.program[i].getBC() +" es:\n\nCPU estado:\n" + cpu.toString() + "\n";
-				}
-			}else if(!cpu.isHalt())
-				s += "Fallo: ejecucion incorrecta del comando";
-		}
-		cpu.erase();
-		cpu.runCPU();
-		return s;
-	}
+    private ByteCode[] program;
+    private int numElements;
+    private int size;
+
+    public ByteCodeProgram() {
+        this.size = 10;
+        this.program = new ByteCode[this.size];
+        this.numElements = 0;
+    }
+
+    /**
+     * toString
+     * @return
+     */
+    public String toString() {
+        String chain = "Programa almacenado:\n";
+        for (int i = 0; i < this.numElements; i++) {
+            if(this.program[i].getParam() == 0) {
+                chain += i + ": " + this.program[i].getName() + "\n";
+            } else {
+                chain += i + ": " + this.program[i].getName() + " " + this.program[i].getParam() + "\n";
+            }
+        }
+        return chain;
+    }
+
+    /**
+     * Cambia el tamaño del array de Bytecodes
+     * Complejidad 0(n)
+     * @param _numElements
+     */
+    private void resize(int _numElements) {
+        ByteCode[] new_program = new ByteCode[_numElements * 2];
+        for (int i = 0; i < this.program.length; i++) {
+            new_program[i] = this.program[i];
+        }
+        this.program = new_program;
+    }
+
+    /**
+     * Añade un bytecode al array
+     * @param _byteCode
+     */
+    public void addByteCode(ByteCode _byteCode) {
+        if (this.numElements >= this.program.length) {
+            resize(this.numElements);
+            this.program[this.numElements] = _byteCode;
+            this.numElements++;
+        } else {
+            this.program[this.numElements] = _byteCode;
+            this.numElements++;
+        }
+    }
+
+    /**
+     * Reemplaza un bytecode
+     * @param _byteCode
+     * @param _i
+     * @return
+     */
+    public boolean replaceByteCode(ByteCode _byteCode, int _i) {
+        if(_i >= this.numElements || _i <= -1) {
+            return false;
+        }
+        else {
+            this.program[_i] = _byteCode;
+            return true;
+        }
+    }
+
+    /**
+     * Ejecuta el "programa"
+     * Complejidad 0(n)
+     * @param _cpu
+     * @return
+     */
+    public String runProgram(CPU _cpu) {
+        String mensaje = "";
+        for (int i = 0; i < this.numElements; i++) {
+            if (!_cpu.isHalt() && _cpu.execute(this.program[i])) {
+                mensaje += "\n-----------------\nEl estado de la máquina tras ejecutar " + this.program[i].getName() + " " + this.program[i].getParam() + " es:\n" + _cpu.toString() + "\n";
+            } else if (!_cpu.isHalt()) {
+                mensaje += ("No se ha podido ejecutar, ejecución incorrecta");
+            }
+        }
+        _cpu.erase();
+        _cpu.runCPU();
+        return mensaje;
+    }
+
+    /**
+     * Resetea el array
+     */
+    public void reset() {
+        this.numElements = 0;
+        this.program = new ByteCode[this.size];
+    }
 }

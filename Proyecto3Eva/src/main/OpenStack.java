@@ -1,63 +1,72 @@
 package main;
 
-import java.io.ObjectInputStream.GetField;
-import java.util.Iterator;
+
 
 public class OpenStack {
-	private final int MAX_STACK = 200;
-	private int[] Stack = new int[MAX_STACK];
-	private int Elements = 0;
+    private int[] stack;
+    private int num_elements;
+    private int MAX_NUM;
 
-	public boolean isEmpty() {
-		if(Elements > 0) {
-			return false;
-		}else
-			return true;
-	}
+    public OpenStack() {
+        this.MAX_NUM = 10;
+        this.num_elements = 0;
+        this.stack = new int[MAX_NUM];
+    }
 
-	public boolean push(int num) {
-		if (this.Elements < this.MAX_STACK) {
-			this.Stack[Elements] = num;
-			this.Elements++;
-			return true;
-		}else
-			return false;
-	}
+    /**
+     * Comprueba que la pila no esté vacía
+     * @return
+     */
+    public boolean isEmpty() {
+        return this.num_elements == 0;
+    }
 
-	public int pop() {
-		int temp = this.Stack[Elements -1];
-		if(isEmpty() == false) {
-			this.Elements--;
-			return temp;
-		}else
-			return -1;
-	}
-	
-	public int getCima() {
-		if(isEmpty() == false) {
-			return this.Stack[Elements -1];
-		}else
-			return -1;
-	}
-	
-	public String toString() {
-		String texto = "";
-		if (isEmpty() == false) {
-			for(int i = 0; i < Elements; i++) {
-				texto += this.Stack[i] + " ";
-			}
-			return texto;
-		}else
-			return "vacia";
-	}
-	
-	public void erase() {
-		this.Stack = new int[MAX_STACK];
-		this.Elements = 0;
-	}
-	
-	public int getElemts() {
-		return this.Elements;
-	}
+    /**
+     * Añade un elemento a la cima de la pila
+     * @param _elemento
+     * @return
+     */
+    public boolean push(int _elemento) {
+        if(this.num_elements < MAX_NUM) {
+            this.stack[this.num_elements] = _elemento;
+            this.num_elements++;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    /**
+     * Devuelve el primer elemento de la pila y lo elimina
+     * @return
+     */
+    public int pop() {
+        if(isEmpty()) {
+            return -1;
+        } else {
+            int ultimo = this.stack[this.num_elements - 1];
+            this.num_elements--;
+            return ultimo;
+        }
+
+    }
+
+    /**
+     * toString
+     * @return
+     */
+    public String toString() {
+        String cadena = "Pila: ";
+        if (isEmpty()) {
+            return cadena += "---";
+        } else {
+            for(int i = 0; i < this.num_elements; i++) {
+                cadena += (" " + this.stack[i] + " ");
+            }
+            return cadena;
+        }
+
+    }
+
+    
 }
