@@ -15,7 +15,6 @@ public class Memory {
 
     /**
      * Redimensiona la memoria
-     * Complejidad 0(n)
      * @param _pos
      */
     private void resize(int _pos) {

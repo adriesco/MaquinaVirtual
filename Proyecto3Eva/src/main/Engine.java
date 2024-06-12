@@ -1,6 +1,5 @@
 package main;
 
-
 import java.util.Scanner;
 
 public class Engine {
@@ -12,8 +11,7 @@ public class Engine {
 	 * Limpia la consola
 	 */
 	public void clearScreen() {
-		System.out.print(
-				"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 	}
 
 	public Engine() {

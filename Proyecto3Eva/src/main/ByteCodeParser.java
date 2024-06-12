@@ -21,11 +21,11 @@ public class ByteCodeParser {
 
     /**
      * devuelve el bytecode 
-     * @param _s
+     * @param s
      * @return
      */
-    public static ByteCode parse(String _s) {
-        switch (_s.toLowerCase()) {
+    public static ByteCode parse(String s) {
+        switch (s.toLowerCase()) {
             case "add":
                 return new ByteCode(ENUM_BYTECODE.ADD);
             case "sub":
