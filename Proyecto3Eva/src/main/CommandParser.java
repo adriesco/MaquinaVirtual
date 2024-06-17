@@ -1,11 +1,13 @@
 package main;
 
+
 public class CommandParser {
+
 	/**
-	 * Parsea un string a un comando
+	 * Parsea un string y lo convierte en un comando.
 	 * 
-	 * @param i
-	 * @return
+	 * @param i la cadena de texto que representa el comando.
+	 * @return el comando correspondiente si se reconoce, null en caso contrario.
 	 */
 	public static Command parse(String i) {
 		String[] partir = i.toLowerCase().split(" ");
@@ -24,7 +26,6 @@ public class CommandParser {
 			} else if (partir.length == 2) {
 				return new Command(ENUM_COMMAND.NEWINST, ByteCodeParser.parse(partir[1]));
 			}
-
 		case "replace":
 			return new Command(ENUM_COMMAND.REPLACE, Integer.parseInt(partir[1]));
 		default:

@@ -5,6 +5,10 @@ public class CPU {
 	private OpenStack pila;
 	private boolean isHalt;
 
+	/**
+	 * Constructor por defecto que inicializa la memoria, la pila y el estado de la
+	 * CPU.
+	 */
 	public CPU() {
 		this.memoria = new Memory();
 		this.pila = new OpenStack();
@@ -12,10 +16,11 @@ public class CPU {
 	}
 
 	/**
-	 * Se encarga de dirigir los bytecodes
+	 * Ejecuta una instrucción de bytecode.
 	 * 
-	 * @param _instr
-	 * @return
+	 * @param instruccion la instrucción de bytecode a ejecutar.
+	 * @return true si la instrucción se ejecuta correctamente, false en caso
+	 *         contrario.
 	 */
 	public boolean execute(ByteCode instruccion) {
 		switch (instruccion.getName()) {
@@ -43,32 +48,32 @@ public class CPU {
 	}
 
 	/**
-	 * Pregunta si el "programa" debe detenerse
+	 * Pregunta si el "programa" debe detenerse.
 	 * 
-	 * @return
+	 * @return true si la CPU está en estado de detención, false en caso contrario.
 	 */
 	public boolean isHalt() {
 		return this.isHalt;
 	}
 
 	/**
-	 * toString
+	 * Devuelve una representación en forma de cadena del estado de la CPU.
 	 * 
-	 * @return
+	 * @return una cadena que representa el estado de la CPU.
 	 */
 	public String toString() {
 		return "\nEstado de la CPU:\n" + memoria.toString() + "\n" + pila.toString() + "\n-----------------";
 	}
 
 	/**
-	 * Elimina alguna ejecución del programa
+	 * Reinicia la ejecución del programa.
 	 */
 	public void runCPU() {
 		this.isHalt = false;
 	}
 
 	/**
-	 * Limpia la memoria (diferenciar de reset)
+	 * Limpia la memoria y la pila.
 	 */
 	public void erase() {
 		this.memoria = new Memory();
@@ -76,10 +81,10 @@ public class CPU {
 	}
 
 	/**
-	 * Añade un elemento a la pila
+	 * Añade un elemento a la pila.
 	 * 
-	 * @param _n
-	 * @return
+	 * @param _n el elemento a añadir a la pila.
+	 * @return true si el elemento se añade correctamente.
 	 */
 	public boolean push(int _n) {
 		runCPU();
@@ -88,9 +93,9 @@ public class CPU {
 	}
 
 	/**
-	 * Suma los 2 ultimos de la pila
+	 * Suma los dos últimos elementos de la pila.
 	 * 
-	 * @return
+	 * @return true si la suma se realiza correctamente.
 	 */
 	public boolean sumaPila() {
 		runCPU();
@@ -111,9 +116,9 @@ public class CPU {
 	}
 
 	/**
-	 * Resta los 2 ultimos de la pila
+	 * Resta los dos últimos elementos de la pila.
 	 * 
-	 * @return
+	 * @return true si la resta se realiza correctamente.
 	 */
 	public boolean restarPila() {
 		runCPU();
@@ -134,9 +139,9 @@ public class CPU {
 	}
 
 	/**
-	 * Multiplica los 2 ultimos de la pila
+	 * Multiplica los dos últimos elementos de la pila.
 	 * 
-	 * @return
+	 * @return true si la multiplicación se realiza correctamente.
 	 */
 	public boolean multiplicarPila() {
 		runCPU();
@@ -157,9 +162,9 @@ public class CPU {
 	}
 
 	/**
-	 * Divide los 2 ultimos de la pila
+	 * Divide los dos últimos elementos de la pila.
 	 * 
-	 * @return
+	 * @return true si la división se realiza correctamente.
 	 */
 	public boolean dividirPila() {
 		runCPU();
@@ -180,10 +185,10 @@ public class CPU {
 	}
 
 	/**
-	 * Guarda un valor en la memoria
+	 * Guarda un valor en la memoria.
 	 * 
-	 * @param _pos
-	 * @return
+	 * @param _pos la posición de la memoria donde se va a guardar el valor.
+	 * @return true si el valor se guarda correctamente.
 	 */
 	public boolean storeMemoria(int _pos) {
 		runCPU();
@@ -192,10 +197,10 @@ public class CPU {
 	}
 
 	/**
-	 * Carga un valor de la memoria
+	 * Carga un valor de la memoria.
 	 * 
-	 * @param _pos
-	 * @return
+	 * @param _pos la posición de la memoria de la que se va a cargar el valor.
+	 * @return true si el valor se carga correctamente.
 	 */
 	public boolean loadMemoria(int _pos) {
 		runCPU();
@@ -204,9 +209,9 @@ public class CPU {
 	}
 
 	/**
-	 * Devuelve el primer elemento de la pila
+	 * Muestra el primer elemento de la pila.
 	 * 
-	 * @return
+	 * @return true si el elemento se muestra correctamente.
 	 */
 	public boolean outPila() {
 		runCPU();
@@ -217,9 +222,9 @@ public class CPU {
 	}
 
 	/**
-	 * Detiene el "programa"
+	 * Detiene el "programa".
 	 * 
-	 * @return
+	 * @return true si el programa se detiene correctamente.
 	 */
 	public boolean haltPrograma() {
 		this.isHalt = true;
@@ -227,14 +232,13 @@ public class CPU {
 	}
 
 	/**
-	 * Resetea la pila y crea unas nuevas
+	 * Resetea la pila y la memoria.
 	 * 
-	 * @return
+	 * @return true si se resetean correctamente.
 	 */
 	public boolean reset() {
 		this.pila = new OpenStack();
 		this.memoria = new Memory();
 		return true;
 	}
-
 }

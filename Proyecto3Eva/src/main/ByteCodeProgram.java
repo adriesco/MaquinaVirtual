@@ -1,10 +1,14 @@
 package main;
 
+
 public class ByteCodeProgram {
 	private ByteCode[] program;
 	private int numElements;
 	private int size;
 
+	/**
+	 * Constructor que inicializa el programa con un tamaño por defecto de 10.
+	 */
 	public ByteCodeProgram() {
 		this.size = 10;
 		this.program = new ByteCode[this.size];
@@ -12,10 +16,11 @@ public class ByteCodeProgram {
 	}
 
 	/**
-	 * toString
+	 * Devuelve una representación en forma de cadena del programa almacenado.
 	 * 
-	 * @return
+	 * @return una cadena que representa el programa almacenado.
 	 */
+	@Override
 	public String toString() {
 		String chain = "Programa almacenado:\n";
 		for (int i = 0; i < this.numElements; i++) {
@@ -29,9 +34,9 @@ public class ByteCodeProgram {
 	}
 
 	/**
-	 * Cambia el tamaño del array de Bytecodes Complejidad 0(n)
+	 * Redimensiona el array de ByteCodes si es necesario.
 	 * 
-	 * @param numElements
+	 * @param numElements el número de elementos actuales en el programa.
 	 */
 	private void resize(int numElements) {
 		ByteCode[] new_program = new ByteCode[numElements * 2];
@@ -42,9 +47,9 @@ public class ByteCodeProgram {
 	}
 
 	/**
-	 * Añade un bytecode al array
+	 * Añade un ByteCode al programa.
 	 * 
-	 * @param _byteCode
+	 * @param _byteCode el ByteCode a añadir.
 	 */
 	public void addByteCode(ByteCode _byteCode) {
 		if (this.numElements >= this.program.length) {
@@ -58,11 +63,11 @@ public class ByteCodeProgram {
 	}
 
 	/**
-	 * Reemplaza un bytecode
+	 * Reemplaza un ByteCode en una posición específica del programa.
 	 * 
-	 * @param _byteCode
-	 * @param _i
-	 * @return
+	 * @param _byteCode el ByteCode a reemplazar.
+	 * @param _i        la posición donde reemplazar el ByteCode.
+	 * @return true si el reemplazo fue exitoso, false en caso contrario.
 	 */
 	public boolean replaceByteCode(ByteCode _byteCode, int _i) {
 		if (_i >= this.numElements || _i <= -1) {
@@ -74,10 +79,11 @@ public class ByteCodeProgram {
 	}
 
 	/**
-	 * Ejecuta el "programa" Complejidad 0(n)
+	 * Ejecuta el programa almacenado.
 	 * 
-	 * @param _cpu
-	 * @return
+	 * @param cpu la CPU que ejecutará el programa.
+	 * @return una cadena con el estado de la máquina tras ejecutar cada
+	 *         instrucción.
 	 */
 	public String runProgram(CPU cpu) {
 		String mensaje = "";
@@ -95,7 +101,7 @@ public class ByteCodeProgram {
 	}
 
 	/**
-	 * Resetea el array
+	 * Resetea el programa, eliminando todas las instrucciones almacenadas.
 	 */
 	public void reset() {
 		this.numElements = 0;

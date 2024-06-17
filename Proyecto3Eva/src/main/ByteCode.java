@@ -1,43 +1,58 @@
 package main;
 
+/**
+ * La clase ByteCode representa una instrucción de ByteCode con un nombre y un
+ * parámetro opcional.
+ */
 public class ByteCode {
 	private ENUM_BYTECODE name;
 	private int param;
 
+	/**
+	 * Constructor que inicializa el ByteCode con un nombre.
+	 * 
+	 * @param enumBytecode el nombre del ByteCode.
+	 */
 	public ByteCode(ENUM_BYTECODE enumBytecode) {
 		this.name = enumBytecode;
 	}
 
+	/**
+	 * Constructor que inicializa el ByteCode con un nombre y un parámetro.
+	 * 
+	 * @param enumBytecode el nombre del ByteCode.
+	 * @param param        el parámetro del ByteCode.
+	 */
 	public ByteCode(ENUM_BYTECODE enumBytecode, int param) {
 		this.param = param;
 		this.name = enumBytecode;
 	}
 
 	/**
-	 * to String de bytecode
+	 * Devuelve una representación en forma de cadena del ByteCode.
 	 * 
-	 * @return
+	 * @return una cadena que representa el ByteCode.
 	 */
+	@Override
 	public String toString() {
 		return this.name.toString() + " " + param;
 	}
 
 	/**
-	 * devuleve el nombre
+	 * Devuelve el nombre del ByteCode.
 	 * 
-	 * @return
+	 * @return el nombre del ByteCode.
 	 */
 	public ENUM_BYTECODE getName() {
 		return this.name;
 	}
 
 	/**
-	 * devuleve el parametro
+	 * Devuelve el parámetro del ByteCode.
 	 * 
-	 * @return
+	 * @return el parámetro del ByteCode.
 	 */
 	public int getParam() {
 		return this.param;
 	}
-
 }

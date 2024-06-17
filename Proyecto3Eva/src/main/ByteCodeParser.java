@@ -1,12 +1,14 @@
 package main;
 
+
 public class ByteCodeParser {
 
     /**
-     * devuelve el bytecode 
-     * @param b
-     * @param a
-     * @return
+     * Devuelve un ByteCode basado en dos cadenas de texto.
+     * 
+     * @param a la cadena que representa el nombre del ByteCode.
+     * @param b la cadena que representa el parámetro del ByteCode.
+     * @return una instancia de ByteCode basada en las cadenas de texto proporcionadas, o null si el nombre no es válido.
      */
     public static ByteCode parse(String a, String b) {
         switch (a.toLowerCase()) {
@@ -16,13 +18,15 @@ public class ByteCodeParser {
                 return new ByteCode(ENUM_BYTECODE.LOAD, Integer.parseInt(b));
             case "store":
                 return new ByteCode(ENUM_BYTECODE.STORE, Integer.parseInt(b));
-        } return null;
+        } 
+        return null;
     }
 
     /**
-     * devuelve el bytecode 
-     * @param s
-     * @return
+     * Devuelve un ByteCode basado en una cadena de texto.
+     * 
+     * @param s la cadena que representa el nombre del ByteCode.
+     * @return una instancia de ByteCode basada en la cadena de texto proporcionada, o null si el nombre no es válido.
      */
     public static ByteCode parse(String s) {
         switch (s.toLowerCase()) {
@@ -38,6 +42,7 @@ public class ByteCodeParser {
                 return new ByteCode(ENUM_BYTECODE.OUT);
             case "halt":
                 return new ByteCode(ENUM_BYTECODE.HALT);
-        } return null;
+        } 
+        return null;
     }
 }
